@@ -14,14 +14,15 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    //open raw file
+    //open raw file and create a pointer to that file
     FILE *raw_file = fopen(argv[1], "r");
     if (raw_file == NULL)
     {
         printf("File didn't read");
         return 2;
     }
-
+    
+    // pointer to a file where data will be recorded
     FILE *image = NULL;
 
     // variables to be used in loop
