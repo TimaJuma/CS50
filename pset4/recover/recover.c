@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    //open damaged file
+    //open raw file
     FILE *raw_file = fopen(argv[1], "r");
     if (raw_file == NULL)
     {
@@ -34,9 +34,10 @@ int main(int argc, char *argv[])
     // loop until end of file is reached
     while (fread(buffer, sizeof(BYTE), 512*sizeof(BYTE), raw_file) > 0)
     {
+        // condition to check for JPEG format
         if (buffer[0] == 0xff && buffer[1] == 0xd8 && buffer[2] == 0xff && (buffer[3] & 0xf0)==0xe0)
         {
-            //condition for first JPEG file
+            //condition if it is not first JPEG 
             if (JPEG_num > 0)
             {
                 fclose(image);
@@ -45,7 +46,7 @@ int main(int argc, char *argv[])
                 JPEG_num++;
             }
 
-            //condition if beginning of not first JPEG
+            //condition for first JPEG file
             else
             {
                 sprintf(filename, "%03i.jpg", JPEG_num);
