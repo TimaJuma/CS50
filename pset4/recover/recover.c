@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
         // condition to check for JPEG format
         if (buffer[0] == 0xff && buffer[1] == 0xd8 && buffer[2] == 0xff && (buffer[3] & 0xf0)==0xe0)
         {
-            //condition if it is not first JPEG 
+            //condition for name if it is not first JPEG 
             if (JPEG_num > 0)
             {
                 fclose(image);
@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
                 JPEG_num++;
             }
 
-            //condition for first JPEG file
+            //condition for first JPEG file name
             else
             {
                 sprintf(filename, "%03i.jpg", JPEG_num);
@@ -57,6 +57,7 @@ int main(int argc, char *argv[])
 
 
         }
+        // write data to a file to create JPEG
         if (JPEG_num > 0)
             {
                 fwrite(buffer, sizeof(BYTE), 512*sizeof(BYTE), image);
